@@ -1,0 +1,38 @@
+{
+  "name": "fontable",
+  "description": "Find the right Google font by embedding a font picker on your website",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/randombits-dev/fontable/issues"
+  },
+  "homepage": "https://github.com/randombits-dev/fontable",
+  "version": "0.0.2",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "font",
+    "google",
+    "google fonts",
+    "tester",
+    "font picker",
+    "font family"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "webfontloader": "^1.6.28"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-css-injected-by-js": "^3.3.0",
+    "vite-plugin-dts": "^3.6.1"
+  }
+}

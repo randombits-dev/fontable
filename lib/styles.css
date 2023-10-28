@@ -1,0 +1,21 @@
+.fontable {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #1a1a1a;
+    color: #eee;
+    width: 200px;
+    text-align: right;
+    padding: 10px 20px;
+    font-family: monospace !important;
+}
+
+.fontable select {
+    padding: 3px 5px;
+    width: 100%;
+}
+
+.fontable span {
+    cursor: pointer;
+    margin-left: 5px;
+}
