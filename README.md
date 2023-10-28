@@ -44,6 +44,4 @@ initFontPicker({
 
 ### About
 
-[Github Repo](https://github.com/randombits-dev/fontable)
-
 Brought to you by [Random Bits Software Engineering](https://randombits.dev)
