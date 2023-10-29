@@ -2,6 +2,9 @@
 
 ## Find the right Google font by embedding a font picker on your website.
 
+![fontable](https://github.com/randombits-dev/fontable/assets/4440760/6c296296-28ed-48bf-b1e7-3d989afdd0e5)
+
+
 ### Features
 
 1. Embed a temporary font picker on your site. It shows up in the lower right corner of the page.
