@@ -12,6 +12,10 @@ a {
     text-decoration: underline;
 }
 
+img {
+    display: none;
+}
+
 body {
     margin: 0 auto;
     place-items: center;

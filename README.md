@@ -1,9 +1,8 @@
-# Fontable
+# Fontable &nbsp;&nbsp;&nbsp;[![NPM Version](https://flat.badgen.net/npm/v/fontable)](https://www.npmjs.com/package/fontable)&nbsp;&nbsp;[![Demo](https://flat.badgen.net/badge/icon/demo/cyan?label)](https://randombits-dev.github.io/fontable/)
 
 ## Find the right Google font by embedding a font picker on your website.
 
 ![fontable](https://github.com/randombits-dev/fontable/assets/4440760/6c296296-28ed-48bf-b1e7-3d989afdd0e5)
-
 
 ### Features
 
@@ -24,25 +23,23 @@ Add the following script to your html page:
 <script src="https://cdn.jsdelivr.net/npm/fontable@latest/dist/auto.js"></script>
 ```
 
+Fonts are applied to the body element.
+
 ### Advanced Install
 
-Use this method if you want to customize how the font family is applied on your site. By default, it is applied to the body element.
+Use this method if you want to customize how the font family is applied on your site.
 
-Install:
-```
-npm install fontable
-```
+```html
+<script>
+  import {initFontPicker} from 'https://cdn.jsdelivr.net/npm/fontable@latest';
 
-Initialize:
-```js
-import {initFontPicker} from "fontable";
-
-initFontPicker({
-  onChange: (fontFamily) => {
-    // set the font family style manually
-    document.querySelector('#content').style.fontFamily = fontFamily;
-  }
-});
+  initFontPicker({
+    onChange: (fontFamily) => {
+      // set the font family style manually
+      document.querySelector('#content').style.fontFamily = fontFamily;
+    }
+  });
+</script>
 ```
 
 ### About
