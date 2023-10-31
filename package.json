@@ -6,7 +6,7 @@
     "url": "https://github.com/randombits-dev/fontable/issues"
   },
   "homepage": "https://github.com/randombits-dev/fontable",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
