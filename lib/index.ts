@@ -1,110 +1,131 @@
-import {ALL_FONTS} from "./font-list.js";
 import * as WebFont from 'webfontloader';
-
-const styles = `
-.fontable {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    background-color: #1a1a1a;
-    color: #eee;
-    width: 200px;
-    text-align: right;
-    padding: 10px 20px;
-    font-family: monospace !important;
-    z-index: 9999;
-}
-
-.fontable select {
-    padding: 3px 5px;
-    width: 100%;
-}
-
-.fontable span {
-    cursor: pointer;
-    margin-left: 5px;
-    font-size: 16px;
-}
-`;
-
-const defaultOnChange = (fontFamily: string) => {
-  document.body.style.fontFamily = fontFamily;
-};
-
-const copyToClipboard = (text: string) => {
-  void navigator.clipboard.write([
-    new ClipboardItem({
-      'text/plain': new Blob([text], {type: 'text/plain'})
-    })
-  ]);
-};
-
-const createLink = (text: string) => {
-  const span = document.createElement('span');
-  span.innerText = text;
-  span.addEventListener('click', () => {
-    console.log(span.getAttribute('data-copy'));
-    copyToClipboard(span.getAttribute('data-copy'));
-  });
-  return span;
-
-};
+import {TEMPLATE} from "./template.ts";
+import {getFontCSS, getFontLink, getFontOptions, getFontStyle, getGoogleLink, getGroupOptions} from "./utils.ts";
 
 export type FontPickerOptions = {
   onChange?: (fontFamily: string) => void
 };
 
 export const initFontPicker = (options: FontPickerOptions = {}) => {
-  const instr = document.createElement('div');
-  instr.appendChild(createLink('<copy link>'));
-  instr.appendChild(createLink('<copy css>'));
+  const settings = JSON.parse(sessionStorage.getItem('fontable')) || {enabled: true, override: false};
+  const updateSetting = (key: string, value: any) => {
+    settings[key] = value;
+    sessionStorage.setItem('fontable', JSON.stringify(settings));
+  };
+
+  const style = document.createElement('style');
+  style.setAttribute('id', 'fontable-styles');
+  const defaultOnChange = (fontFamily: string) => {
+    style.textContent = getFontStyle(fontFamily, settings.override);
+  };
+
+  const rootEl = document.createElement('div');
+  rootEl.classList.add('fontable');
+  rootEl.innerHTML = TEMPLATE;
+
+  const instr1 = rootEl.querySelector("#instr1") as HTMLDivElement;
+  const instr2 = rootEl.querySelector("#instr2") as HTMLDivElement;
+  const googleLink = rootEl.querySelector("#google-link") as HTMLAnchorElement;
+  instr1.addEventListener('click', () => {
+    navigator.clipboard.writeText(getFontLink(settings.font));
+    instr1.firstChild.style.visibility = 'visible';
+    setTimeout(() => {
+      instr1.firstChild.style.visibility = 'hidden';
+    }, 1000);
+  });
+  instr2.addEventListener('click', () => {
+    navigator.clipboard.writeText(getFontCSS(settings.font));
+    instr2.firstChild.style.visibility = 'visible';
+    setTimeout(() => {
+      instr2.firstChild.style.visibility = 'hidden';
+    }, 1000);
+  });
+  googleLink.addEventListener('click', () => {
+    // navigate to new tab
+    window.open(getGoogleLink(settings.font), '_blank');
+  });
+
+  const toggle = rootEl.querySelector("#toggle") as HTMLInputElement;
+  toggle.checked = settings.enabled ?? true;
+  toggle.addEventListener("change", () => {
+    updateSetting('enabled', toggle.checked);
+    rootEl.classList.toggle('enabled', toggle.checked);
+    if (toggle.checked) {
+      loadFont(settings.font);
+    } else {
+      document.querySelector('#fontable-styles').remove();
+      options.onChange && options.onChange('');
+    }
+  });
+
+  const override = rootEl.querySelector("#override") as HTMLInputElement;
+  override.checked = settings.override ?? true;
+  override.addEventListener("change", () => {
+    updateSetting('override', override.checked);
+    if (settings.enabled) {
+      loadFont(settings.font);
+    }
+  });
 
   const loadFont = (font: string) => {
-    sessionStorage.setItem('font', font);
-    if (font) {
+    updateSetting('font', font);
+    if (font && settings.enabled) {
       WebFont.load({
         google: {
           families: [font]
         },
         active: () => {
           options.onChange ? options.onChange(font) : defaultOnChange(font);
-          instr.children.item(0).setAttribute('data-copy', `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=${font}"/>`);
-          instr.children.item(1).setAttribute('data-copy', `font-family: '${font}, sans-serif'`);
+          googleLink.style.visibility = 'visible';
+          instr1.style.visibility = 'visible';
+          instr2.style.visibility = 'visible';
         }
       });
+      if (!document.querySelector('#fontable-styles')) {
+        document.head.appendChild(style);
+      }
     } else {
-      document.body.style.fontFamily = 'sans-serif';
+      options.onChange && options.onChange('');
+      style.textContent = '';
+      googleLink.style.visibility = 'hidden';
+      instr1.style.visibility = 'hidden';
+      instr2.style.visibility = 'hidden';
     }
   };
 
-  const initialFont = sessionStorage.getItem('font');
-  if (initialFont) {
-    loadFont(initialFont);
+  if (settings.enabled) {
+    loadFont(settings.font);
+    rootEl.classList.toggle('enabled');
   }
 
-  const containerDiv = document.createElement('div');
-  const shadow = containerDiv.attachShadow({mode: 'closed'});
-  const stylesheet = new CSSStyleSheet();
-  stylesheet.replaceSync(styles);
-  shadow.adoptedStyleSheets = [stylesheet];
-  const fontableEl = document.createElement('div');
-  fontableEl.classList.add('fontable');
-  const select = document.createElement('select');
-  select.innerHTML = '<option value="">--Select Font--</option>' + ALL_FONTS.map((font: string) => {
-    if (font === initialFont) {
-      return `<option selected>${font}</option>`;
-    } else {
-      return `<option>${font}</option>`;
+  const writeSelect = (selectedGroup: string) => {
+    select.innerHTML = getFontOptions(selectedGroup, settings.font).join('');
+    if (!select.querySelector('option[selected]')) {
+      loadFont('');
     }
-  }).join('');
+  };
+
+  const groupSelect = rootEl.querySelector("#group-select") as HTMLSelectElement;
+  groupSelect.innerHTML = getGroupOptions(settings.group).join('');
+  groupSelect.addEventListener('change', (event) => {
+    const target = event.target as HTMLSelectElement;
+    const selectedGroup = target.value;
+    updateSetting('group', selectedGroup);
+    writeSelect(selectedGroup);
+  });
+
+  const select = rootEl.querySelector("#font-select") as HTMLSelectElement;
+  writeSelect(settings.group);
   select.addEventListener('change', (event) => {
     const target = event.target as HTMLSelectElement;
     loadFont(target.value);
   });
-  fontableEl.appendChild(select);
-  fontableEl.appendChild(instr);
-  shadow.appendChild(fontableEl);
-  document.body.appendChild(containerDiv);
+
+
+  const containerEl = document.createElement('div');
+  const shadow = containerEl.attachShadow({mode: 'open'});
+  shadow.appendChild(rootEl);
+  document.body.appendChild(containerEl);
   select.focus();
 };
 

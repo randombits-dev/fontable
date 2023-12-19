@@ -8,4 +8,7 @@ export default defineConfig({
     syntaxHighlight: 'prism'
   },
   integrations: [],
+  devToolbar: {
+    enabled: false
+  },
 });
