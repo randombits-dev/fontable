@@ -25,19 +25,21 @@ export const initFontPicker = (options: FontPickerOptions = {}) => {
 
   const instr1 = rootEl.querySelector("#instr1") as HTMLDivElement;
   const instr2 = rootEl.querySelector("#instr2") as HTMLDivElement;
+  const instr1Icon = instr1.firstChild as HTMLElement;
+  const instr2Icon = instr2.firstChild as HTMLElement;
   const googleLink = rootEl.querySelector("#google-link") as HTMLAnchorElement;
   instr1.addEventListener('click', () => {
     navigator.clipboard.writeText(getFontLink(settings.font));
-    instr1.firstChild.style.visibility = 'visible';
+    instr1Icon.style.visibility = 'visible';
     setTimeout(() => {
-      instr1.firstChild.style.visibility = 'hidden';
+      instr1Icon.style.visibility = 'hidden';
     }, 1000);
   });
   instr2.addEventListener('click', () => {
     navigator.clipboard.writeText(getFontCSS(settings.font));
-    instr2.firstChild.style.visibility = 'visible';
+    instr2Icon.style.visibility = 'visible';
     setTimeout(() => {
-      instr2.firstChild.style.visibility = 'hidden';
+      instr2Icon.style.visibility = 'hidden';
     }, 1000);
   });
   googleLink.addEventListener('click', () => {
