@@ -2,7 +2,7 @@
 
 ## Try out different Google fonts by embedding a font picker on your website.
 
-![fontable](https://github.com/randombits-dev/fontable/assets/4440760/6c296296-28ed-48bf-b1e7-3d989afdd0e5)
+![fontable](https://github.com/randombits-dev/fontable/assets/4440760/33f4dff9-3448-4225-b257-12fa5335cb8a)
 
 ### Features
 
