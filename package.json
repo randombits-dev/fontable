@@ -30,9 +30,9 @@
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "typescript": "^5.0.2",
-    "vite": "^4.4.5",
-    "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vite-plugin-dts": "^3.6.1"
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-css-injected-by-js": "^3.3.1",
+    "vite-plugin-dts": "^3.7.0"
   }
 }
