@@ -6,7 +6,7 @@
     "url": "https://github.com/randombits-dev/fontable/issues"
   },
   "homepage": "https://github.com/randombits-dev/fontable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,16 +23,16 @@
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && vite build -c vite.auto.ts",
     "preview": "vite preview"
   },
   "dependencies": {
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vite-plugin-css-injected-by-js": "^3.3.1",
-    "vite-plugin-dts": "^3.7.0"
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
+    "vite-plugin-dts": "^3.9.1"
   }
 }

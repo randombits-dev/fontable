@@ -6,10 +6,13 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 export default defineConfig({
   plugins: [dts(), cssInjectedByJsPlugin()],
   build: {
+    emptyOutDir: false,
     lib: {
-      name: 'index',
-      fileName: 'index',
-      entry: resolve(__dirname, 'lib/index.ts'),
+      name: 'auto',
+      fileName: 'auto',
+      entry: [
+        resolve(__dirname, 'lib/auto.ts'),
+      ]
     }
   }
 });
