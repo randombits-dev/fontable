@@ -9,8 +9,8 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "astro": "^4.0.6",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "astro": "^5.13.6",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5"
   }
 }
