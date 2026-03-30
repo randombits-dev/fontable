@@ -19,8 +19,8 @@ importers:
         specifier: ^7.1.5
         version: 7.1.5
       vite-plugin-css-injected-by-js:
-        specifier: ^3.5.2
-        version: 3.5.2(vite@7.1.5)
+        specifier: ^4.0.1
+        version: 4.0.1(vite@7.1.5)
       vite-plugin-dts:
         specifier: ^4.5.4
         version: 4.5.4(rollup@4.50.1)(typescript@5.9.2)(vite@7.1.5)
@@ -668,8 +668,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vite-plugin-css-injected-by-js@3.5.2:
-    resolution: {integrity: sha512-2MpU/Y+SCZyWUB6ua3HbJCrgnF0KACAsmzOQt1UvRVJCGF6S8xdA3ZUhWcWdM9ivG4I5az8PnQmwwrkC2CAQrQ==}
+  vite-plugin-css-injected-by-js@4.0.1:
+    resolution: {integrity: sha512-WfyRojojQyAO/KzWf+efcXpTPv6zJPXaRmr9EYq5a4v5I3PWCR7kR01hiri2lW6+rHm3a57kpwsf+iahIJi1Qw==}
     peerDependencies:
       vite: '>2.0.0-0'
 
@@ -1286,7 +1286,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  vite-plugin-css-injected-by-js@3.5.2(vite@7.1.5):
+  vite-plugin-css-injected-by-js@4.0.1(vite@7.1.5):
     dependencies:
       vite: 7.1.5
 
